@@ -1,3 +1,4 @@
+# 2021-08-13
 ```shell
 npm install jquery lodash -S
 ```
@@ -22,6 +23,6 @@ module.exports = {
 在public/index.html里引入jquery、lodash
 
 output:
-path: path.resolve(__dirname, '../dist') => path: path.resolve(__dirname, '../static/dist')
+path: path.resolve(__dirname, '../dist') => path: path.resolve(__dirname, '../static/website/js')
 devServer:
-contentBase: path.resolve(__dirname, '../dist') => path.resolve(__dirname, '../static/dist')
+contentBase: path.resolve(__dirname, '../dist') => path.resolve(__dirname, '../static/')
