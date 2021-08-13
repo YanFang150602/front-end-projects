@@ -70,6 +70,7 @@ externals "lodash"
 解答一：
 
 1、index.html文件引入jquery、lodash需要在main、index之前使用。
+
 2、externals配置的jquery、lodash有误：
 
 module.exports = {
