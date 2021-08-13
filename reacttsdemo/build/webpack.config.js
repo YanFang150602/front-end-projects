@@ -13,9 +13,9 @@ module.exports = (env, args) => ({
     extensions: ['.js', '.jsx', '.ts', '.tsx']
   },
   output: {
-    path: path.resolve(__dirname, '../static/js'),
+    path: path.resolve(__dirname, '../static/website/js'),
     filename: '[name].js',
-    publicPath: '/website/static/js'
+    publicPath: '/website/js'
   },
   externals: {
     jquery: 'jquery',
@@ -56,7 +56,7 @@ module.exports = (env, args) => ({
     new CopyWebpackPlugin([
         {
           from: path.resolve(__dirname,'../node_modules/jquery/dist/jquery.min.js'),
-          to: path.resolve(__dirname,'../static/3rdJS/jquery.min.js')
+          to: path.resolve(__dirname,'../static/website/3rdJS/jquery.min.js')
         },
         {
           from: './node_modules/lodash/lodash.min.js',
@@ -74,7 +74,7 @@ module.exports = (env, args) => ({
     compress: true,
     port: 8080,
     open: true,
-    publicPath: '/',
+    publicPath: '/website/',
   },
   stats: {
     modules: false,
