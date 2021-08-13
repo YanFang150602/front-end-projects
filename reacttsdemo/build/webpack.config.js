@@ -60,11 +60,11 @@ module.exports = (env, args) => ({
         },
         {
           from: './node_modules/lodash/lodash.min.js',
-          to: '../3rdJs',
+          to: '../3rdJs', // 相对output/path目录
         },
         {
           from: './public/images/',
-          to: '../images',
+          to: '../images', // 相对output/path目录
         }
       ]),
   ],
