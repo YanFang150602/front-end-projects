@@ -63,7 +63,9 @@ externals "jquery"
 
 lodash is not defined
 externals "lodash"
+
 解答一：
+
 1、externals
 module.exports = {
   externals: {
@@ -71,11 +73,14 @@ module.exports = {
     lodash: ['lodash'],
   }
 }
+
 转为：
+
 module.exports = {
   externals: {
     jquery: 'jQuery',
     lodash: 'lodash',
   }
 }
+
 2、index.html文件引入jquery、lodash需要在main、index之前使用。
