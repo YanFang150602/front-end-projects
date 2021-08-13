@@ -56,6 +56,7 @@ devServer:
 contentBase: path.resolve(__dirname, '../dist') => path.resolve(__dirname, '../static/dist')
 
 使用externals遇到的问题：
+
 问题一：
 
 控制台总报错：
@@ -65,9 +66,10 @@ externals "jquery"
 
 lodash is not defined
 externals "lodash"
+
 解答一：
 
-1、、index.html文件引入jquery、lodash需要在main、index之前使用。
+1、index.html文件引入jquery、lodash需要在main、index之前使用。
 2、externals配置的jquery、lodash有误：
 
 module.exports = {
