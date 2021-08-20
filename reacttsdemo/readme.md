@@ -88,3 +88,7 @@ module.exports = {
     lodash: 'lodash',
   }
 }
+
+# 2021-08-20
+DllPlugin和DllReferencePlugin
+提升性能，代码可以分离出来（有点像externals）
