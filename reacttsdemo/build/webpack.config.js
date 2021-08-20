@@ -1,6 +1,8 @@
 const path = require('path');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const { library } = require('./vendor');
 
 module.exports = (env, args) => ({
   devtool: args.mode === 'development' ? 'source-map' : 'inline-source-map',
@@ -18,7 +20,7 @@ module.exports = (env, args) => ({
     publicPath: '/website/js'
   },
   externals: {
-    jquery: 'jquery',
+    jquery: '$',
     lodash: '_',
   },
   module: {
@@ -54,19 +56,24 @@ module.exports = (env, args) => ({
       filename: '../index.html' // 相对output/path目录
     }),
     new CopyWebpackPlugin([
-        {
-          from: path.resolve(__dirname,'../node_modules/jquery/dist/jquery.min.js'),
-          to: path.resolve(__dirname,'../static/website/3rdJS/jquery.min.js')
-        },
-        {
-          from: './node_modules/lodash/lodash.min.js',
-          to: '../3rdJs', // 相对output/path目录
-        },
-        {
-          from: './public/images/',
-          to: '../images', // 相对output/path目录
-        }
-      ]),
+      {
+        from: path.resolve(__dirname,'../node_modules/jquery/dist/jquery.min.js'),
+        to: path.resolve(__dirname,'../static/website/3rdJS/jquery.min.js')
+      },
+      {
+        from: './node_modules/lodash/lodash.min.js',
+        to: '../3rdJs',
+      },
+      {
+        from: './public/images/',
+        to: '../images',
+      }
+    ]),
+    ...Object.keys(library).map(key => {
+      return new webpack.DllReferencePlugin({
+        manifest: path.resolve(__dirname, `../static/website/dll/${key}.manifest.json`)
+      })
+    })
   ],
   devServer: {
     https: true,
@@ -74,7 +81,9 @@ module.exports = (env, args) => ({
     compress: true,
     port: 8080,
     open: true,
-    publicPath: '/website/',
+    hot: true,
+    hotOnly: true,
+    publicPath: '/',
   },
   stats: {
     modules: false,
