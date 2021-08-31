@@ -19,9 +19,10 @@ const Dispatch = (props) => {
     props.add();
   };
   return (<>
-    <button onClick={handleClick}>+</button>
+    <button onClick={handleClick}>+</button><br/>
+    <Link to="/count/testo">查看累计</Link><br/>
     <Router>
-      <Link to={`${match.url}/111`}>tt</Link>
+      <Link to={`${match.url}/111`}>加载子页面</Link>
       <Route path={`${match.url}/:topicId`}><WrappedTopicId /></Route>
     </Router>
   </>);
