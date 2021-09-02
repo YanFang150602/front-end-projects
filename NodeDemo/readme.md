@@ -57,7 +57,7 @@ const http = require('http'); // 引入http模块用于构造http服务器
 const name = 'My App';
 
 // 启用debug实例
-// log.enabled = true;
+// log.enabled = true; 配合npm run server执行
 log('params: ', process.argv);
 log('booting server: %o', name); // 调用debug输出(printf风格输出--详见util.inspect及console模块)
 
