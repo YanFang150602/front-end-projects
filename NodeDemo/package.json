@@ -1,0 +1,28 @@
+{
+  "name": "NodeDemo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "node build/server.js",
+    "server:better": "better-npm-run server",
+    "server:debug": "better-npm-run debug"
+  },
+  "betterScripts": {
+    "server": {
+      "command": "nodemon build/server",
+      "env": {
+          "DEBUG": "log:*"
+      }
+    },
+    "debug": "set DEBUG=log:* & nodemon build/server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "debug": "^4.3.2",
+    "nodemon": "^2.0.12"
+  }
+}
