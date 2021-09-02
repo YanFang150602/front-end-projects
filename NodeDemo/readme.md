@@ -34,7 +34,7 @@ npm install better-npm-run -D
     "server": {
       "command": "nodemon build/server",
       "env": {
-          "DEBUG": "log:*"
+        "DEBUG": "log:*"
       }
     },
     "debug": "set DEBUG=log:* & nodemon build/server.js"
@@ -43,6 +43,7 @@ npm install better-npm-run -D
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "better-npm-run": "^0.1.1",
     "debug": "^4.3.2",
     "nodemon": "^2.0.12"
   }
