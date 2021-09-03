@@ -24,12 +24,41 @@ webpackConfig.plugins.push(
 );
 ```
 
-main.js
+src\main.js
 
 ```js
 $('#root').append('<div style="color: red">hello main</div>');
 ```
 
+src\index.js
+
+```js
+$('#root').append('<div style="color: red">hello index</div>');
+```
+
+编译效果：
+
+```shell
+Hash: 8e0b36136d7b4ea8c7c7
+Version: webpack 4.46.0
+Time: 498ms
+Built at: 2021-09-03 5:33:31 ├F10: PM┤
+                        Asset       Size  Chunks                         Chunk Names
+index.8e0b36136d7b4ea8c7c7.js    324 KiB   index  [emitted] [immutable]  index
+                   index.html  202 bytes          [emitted]
+ main.8e0b36136d7b4ea8c7c7.js    324 KiB    main  [emitted] [immutable]  main
+Entrypoint index = index.8e0b36136d7b4ea8c7c7.js
+Entrypoint main = main.8e0b36136d7b4ea8c7c7.js
+# 将index、main里引入的jquery分别引入到各自编译后的文件里（未提取出来）
+[./node_modules/jquery/dist/jquery.js] 282 KiB {index} {main} [built]
+[./src/index.js] 127 bytes {index} [built]
+[./src/main.js] 126 bytes {main} [built]
+Child HtmlWebpackCompiler:
+                          Asset      Size               Chunks  Chunk Names
+    __child-HtmlWebpackPlugin_0  4.45 KiB  HtmlWebpackPlugin_0  HtmlWebpackPlugin_0
+    Entrypoint HtmlWebpackPlugin_0 = __child-HtmlWebpackPlugin_0
+    [./node_modules/html-webpack-plugin/lib/loader.js!./src/index.html] 343 bytes {HtmlWebpackPlugin_0} [built]
+```
 js里虽不用import jquery，但编译时，会自动引入jquery(不能完全实现代码分割)
 
 # 验证SplitChunksPlugin
@@ -114,3 +143,5 @@ Child HtmlWebpackCompiler:
     [./node_modules/html-webpack-plugin/lib/loader.js!./src/index.html] 343 bytes {HtmlWebpackPlugin_0} [built]
 PS D:\workbook\webpackdemo>
 ```
+
+
