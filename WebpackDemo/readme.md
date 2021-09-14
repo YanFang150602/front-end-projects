@@ -144,4 +144,32 @@ Child HtmlWebpackCompiler:
 PS D:\workbook\webpackdemo>
 ```
 
+# Tree Shaking
+
+## usedExports
+
+依赖于 ES2015 模块语法的 静态结构 特性，例如 import 和 export！
+
+```js
+webpackConfig.mode = 'development';
+webpackConfig.optimization = {
+  usedExports: true
+}
+```
+
+不会删除掉未被引用的export，只是在编译后的文件里加个注释`/* unused harmony export testReg */`！！！
+
+## sideEffects
+
+```js
+webpackConfig.mode = 'production';
+```
+
+```json
+{
+  "sideEffects": ["*.css", "*.less"]
+}
+```
+
+删除掉未被引用的export！！！
 
