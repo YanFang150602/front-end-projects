@@ -242,3 +242,50 @@ Child HtmlWebpackCompiler:
 PS D:\workbook\webpackdemo>
 ```
 
+# bundle 分析
+
+1、安装webpack-bundle-analyzer插件：
+
+```shell
+npm install webpack-bundle-analyzer -D
+```
+
+2、build/webpack.config.js里添加webpack-bundle-analyzer插件：
+
+```js
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+
+webpackConfig.plugins.push(new BundleAnalyzerPlugin());
+```
+
+3、往package.json里的script添加执行命令：
+
+```json
+{
+  "script": {
+    "analyzer": "better-npm-run analyzer"
+  },
+  "betterScripts": {
+    "analyzer": {
+      "command": "webpack --config build/webpack.config.js --json > stats.json & webpack-bundle-analyzer stats.json"
+    }
+  },
+}
+```
+
+4、执行命令
+
+```shell
+PS D:\workbook\webpackdemo> npm run analyzer
+
+> webpackdemo@1.0.0 analyzer D:\workbook\webpackdemo
+> better-npm-run analyzer
+
+running better-npm-run in D:\workbook\webpackdemo
+Executing script: analyzer
+
+to be executed: "webpack --config build/webpack.config.js --json > stats.json & webpack-bundle-analyzer stats.json"
+
+# 浏览器自动打开页面，显示出编译文件信息
+
+```
