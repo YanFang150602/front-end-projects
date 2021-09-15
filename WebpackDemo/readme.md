@@ -8,13 +8,13 @@ npm init -y
 
 # 验证ProvidePlugin
 
-安装jquery
+1、安装jquery：
 
 ```shell
 npm install jquery -S
 ```
 
-build\webpack.config.js
+2、build\webpack.config.js文件里引入ProvidePlugin：
 
 ```js
 webpackConfig.plugins.push(
@@ -24,19 +24,19 @@ webpackConfig.plugins.push(
 );
 ```
 
-src\main.js
+3、src\main.js直接使用jquery（不需要import）：
 
 ```js
 $('#root').append('<div style="color: red">hello main</div>');
 ```
 
-src\index.js
+4、src\index.js直接使用jquery（不需要import）：
 
 ```js
 $('#root').append('<div style="color: red">hello index</div>');
 ```
 
-编译效果：
+5、编译效果：
 
 ```shell
 Hash: 8e0b36136d7b4ea8c7c7
@@ -258,34 +258,116 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 webpackConfig.plugins.push(new BundleAnalyzerPlugin());
 ```
 
-3、往package.json里的script添加执行命令：
+3、`npm run build`编译结果：
+
+```shell
+PS D:\workbook\webpackdemo> npm run build
+
+> webpackdemo@1.0.0 build D:\workbook\webpackdemo
+> better-npm-run build
+
+running better-npm-run in D:\workbook\webpackdemo
+Executing script: build
+
+to be executed: "npm run clean & webpack --config build/webpack.config.js --mode development"
+
+> webpackdemo@1.0.0 clean D:\workbook\webpackdemo
+> rimraf dist
+
+Webpack Bundle Analyzer is started at http://127.0.0.1:8888
+Use Ctrl+C to close it
+Hash: 641bbb11c781c9ebec32
+Version: webpack 4.46.0
+Time: 2421ms
+Built at: 2021-09-15 4:59:57 ├F10: PM┤
+                                           Asset       Size                    Chunks                         Chunk Names
+                   CTest.641bbb11c781c9ebec32.js   5.08 KiB                     CTest  [emitted] [immutable]  CTest
+                   entry.641bbb11c781c9ebec32.js   1.74 KiB                     entry  [emitted] [immutable]  entry
+                   index.641bbb11c781c9ebec32.js    322 KiB                     index  [emitted] [immutable]  index
+                                      index.html  382 bytes                            [emitted]
+                    main.641bbb11c781c9ebec32.js    321 KiB                      main  [emitted] [immutable]  main
+                 runtime.641bbb11c781c9ebec32.js   36.3 KiB                   runtime  [emitted] [immutable]  runtime
+vendors~CTest~index~main.641bbb11c781c9ebec32.js    551 KiB  vendors~CTest~index~main  [emitted] [immutable]  vendors~CTest~index~main
+Entrypoint index = runtime.641bbb11c781c9ebec32.js vendors~CTest~index~main.641bbb11c781c9ebec32.js index.641bbb11c781c9ebec32.js
+Entrypoint main = runtime.641bbb11c781c9ebec32.js vendors~CTest~index~main.641bbb11c781c9ebec32.js main.641bbb11c781c9ebec32.js
+Entrypoint entry = runtime.641bbb11c781c9ebec32.js entry.641bbb11c781c9ebec32.js
+[./node_modules/jquery/dist/jquery.js] 282 KiB {index} {main} [built]
+[./node_modules/lodash/lodash.js] 531 KiB {vendors~CTest~index~main} [built]
+[./node_modules/webpack/buildin/global.js] (webpack)/buildin/global.js 472 bytes {vendors~CTest~index~main} [built]
+[./node_modules/webpack/buildin/module.js] (webpack)/buildin/module.js 497 bytes {vendors~CTest~index~main} [built]
+[./src/3rd/webpack-numbers.js] 2.94 KiB {CTest} [built]
+[./src/component/Test.js] 161 bytes {CTest} [built]
+[./src/entry.js] 166 bytes {entry} [built]
+[./src/index.js] 758 bytes {index} [built]
+[./src/js/children.js] 277 bytes {index} {main} [built]
+[./src/js/component.js] 312 bytes {entry} [built]
+[./src/js/math.js] 199 bytes {index} {main} [built]
+[./src/main.js] 375 bytes {main} [built]
+Child HtmlWebpackCompiler:
+                          Asset      Size               Chunks  Chunk Names
+    __child-HtmlWebpackPlugin_0  4.47 KiB  HtmlWebpackPlugin_0  HtmlWebpackPlugin_0
+    Entrypoint HtmlWebpackPlugin_0 = __child-HtmlWebpackPlugin_0
+    [./node_modules/html-webpack-plugin/lib/loader.js!./src/index.html] 343 bytes {HtmlWebpackPlugin_0} [built]
+
+# 浏览器会自动打开http://127.0.0.1:8888/，显示webpack bundle分析
+```
+
+4、避免执行`npm run build`命令时自动打开浏览器，参考下面操作：
+
+```js
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+
+// webpackConfig.plugins.push(new BundleAnalyzerPlugin());
+```
 
 ```json
 {
   "script": {
-    "analyzer": "better-npm-run analyzer"
-  },
-  "betterScripts": {
-    "analyzer": {
-      "command": "webpack --config build/webpack.config.js --json > stats.json & webpack-bundle-analyzer stats.json"
-    }
+    "stat": "webpack --config build/webpack.config.js --json > stats.json",
+    "analyzer": "webpack-bundle-analyzer stats.json"
   },
 }
 ```
 
-4、执行命令
+由`npm run stat`命令记录编译信息数据；
 
-```shell
-PS D:\workbook\webpackdemo> npm run analyzer
+由`npm run analyzer`命令打开分析页面。
 
-> webpackdemo@1.0.0 analyzer D:\workbook\webpackdemo
-> better-npm-run analyzer
+# 引用library
 
-running better-npm-run in D:\workbook\webpackdemo
-Executing script: analyzer
+将WebpackLibraryDemo打的webpack-numbers.js存放到src/3rd目录里。
 
-to be executed: "webpack --config build/webpack.config.js --json > stats.json & webpack-bundle-analyzer stats.json"
+1、修改build/webpack.config.js
 
-# 浏览器自动打开页面，显示出编译文件信息
-
+```js
+webpackConfig.resolve = {
+  extensions: ['.js'],
+  alias: {
+    '@3rd': path.resolve(__dirname, '../src/3rd')
+  }
+};
+webpackConfig.optimization.splitChunks = {
+  chunks: 'all',
+  maxInitialRequests: 3,
+  minSize: 0,
+};
+webpackConfig.plugins.push(
+  new webpack.ProvidePlugin({
+    $: 'jquery',
+    _: 'lodash'
+  })
+);
 ```
+
+2、修改src/component/Test.js
+
+```js
+import { numToWord } from '@3rd/webpack-numbers';
+
+export default function Test() {
+  console.log('test.......test....test......');
+  console.log(numToWord(0));
+}
+```
+
+
