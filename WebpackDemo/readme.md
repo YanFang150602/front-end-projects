@@ -173,3 +173,72 @@ webpackConfig.mode = 'production';
 
 删除掉未被引用的export！！！
 
+# 动态导入
+
+entry.js
+
+```js
+import(/* webpackChunkName: "CTest" */'./component/Test').then((module) => {
+  module.default();
+});
+```
+
+component/Test.js
+
+```js
+export default function Test() {
+  console.log('test.......test....test......');
+}
+```
+
+编译后的结果：
+
+```shell
+PS D:\workbook\webpackdemo> npm run build
+
+> webpackdemo@1.0.0 build D:\workbook\webpackdemo
+> better-npm-run build
+
+running better-npm-run in D:\workbook\webpackdemo
+Executing script: build
+
+to be executed: "npm run clean & webpack --config build/webpack.config.js --mode development"
+
+> webpackdemo@1.0.0 clean D:\workbook\webpackdemo
+> rimraf dist
+
+Hash: c0fe73585ccc817de0a7
+Version: webpack 4.46.0
+Time: 2267ms
+Built at: 2021-09-15 9:26:51 ├F10: AM┤
+                                     Asset       Size              Chunks                         Chunk Names
+             CTest.c0fe73585ccc817de0a7.js  668 bytes               CTest  [emitted] [immutable]  CTest
+             entry.c0fe73585ccc817de0a7.js   1.67 KiB               entry  [emitted] [immutable]  entry
+             index.c0fe73585ccc817de0a7.js   2.68 KiB               index  [emitted] [immutable]  index
+                                index.html  376 bytes                      [emitted]
+              main.c0fe73585ccc817de0a7.js   2.29 KiB                main  [emitted] [immutable]  main
+           runtime.c0fe73585ccc817de0a7.js   36.3 KiB             runtime  [emitted] [immutable]  runtime
+vendors~index~main.c0fe73585ccc817de0a7.js    870 KiB  vendors~index~main  [emitted] [immutable]  vendors~index~main
+Entrypoint index = runtime.c0fe73585ccc817de0a7.js vendors~index~main.c0fe73585ccc817de0a7.js index.c0fe73585ccc817de0a7.js
+Entrypoint main = runtime.c0fe73585ccc817de0a7.js vendors~index~main.c0fe73585ccc817de0a7.js main.c0fe73585ccc817de0a7.js
+Entrypoint entry = runtime.c0fe73585ccc817de0a7.js entry.c0fe73585ccc817de0a7.js
+[./node_modules/jquery/dist/jquery.js] 282 KiB {vendors~index~main} [built]
+[./node_modules/lodash/lodash.js] 531 KiB {vendors~index~main} [built]
+[./node_modules/webpack/buildin/global.js] (webpack)/buildin/global.js 472 bytes {vendors~index~main} [built]
+[./node_modules/webpack/buildin/module.js] (webpack)/buildin/module.js 497 bytes {vendors~index~main} [built]
+# 动态导入：根据webpackChunkName: CTest生成对应的chunk
+[./src/component/Test.js] 82 bytes {CTest} [built]
+[./src/entry.js] 166 bytes {entry} [built]
+[./src/index.js] 758 bytes {index} [built]
+[./src/js/children.js] 277 bytes {index} {main} [built]
+[./src/js/component.js] 312 bytes {entry} [built]
+[./src/js/math.js] 199 bytes {index} {main} [built]
+[./src/main.js] 375 bytes {main} [built]
+Child HtmlWebpackCompiler:
+                          Asset      Size               Chunks  Chunk Names
+    __child-HtmlWebpackPlugin_0  4.47 KiB  HtmlWebpackPlugin_0  HtmlWebpackPlugin_0
+    Entrypoint HtmlWebpackPlugin_0 = __child-HtmlWebpackPlugin_0
+    [./node_modules/html-webpack-plugin/lib/loader.js!./src/index.html] 343 bytes {HtmlWebpackPlugin_0} [built]
+PS D:\workbook\webpackdemo>
+```
+
