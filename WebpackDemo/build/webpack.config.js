@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const webpackConfig = {
   entry: {
@@ -13,19 +14,26 @@ const webpackConfig = {
     path: path.resolve(__dirname, '../dist')
   },
 };
+webpackConfig.resolve = {
+  extensions: ['.js'],
+  alias: {
+    '@3rd': path.resolve(__dirname, '../src/3rd')
+  }
+};
 webpackConfig.optimization = {
   runtimeChunk: 'single',
   usedExports: true,
 };
 webpackConfig.optimization.splitChunks = {
   chunks: 'all',
-  maxInitialRequests: 2,
+  maxInitialRequests: 3,
   minSize: 0,
 };
 webpackConfig.plugins = [];
 webpackConfig.plugins.push(
   new webpack.ProvidePlugin({
-    $: 'jquery'
+    $: 'jquery',
+    _: 'lodash'
   })
 );
 webpackConfig.plugins.push(
@@ -35,6 +43,7 @@ webpackConfig.plugins.push(
   })
 );
 webpackConfig.plugins.push(new webpack.HotModuleReplacementPlugin());
+webpackConfig.plugins.push(new BundleAnalyzerPlugin());
 // webpackConfig.devtool = 'source-map';
 webpackConfig.devServer = {
   static: './dist',
@@ -53,7 +62,7 @@ webpackConfig.module.rules.push({
     options: {
       presets: [
         '@babel/preset-env'
-      ]
+      ],
     }
   }]
 });
