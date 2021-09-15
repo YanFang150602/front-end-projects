@@ -348,6 +348,7 @@ webpackConfig.resolve = {
 };
 webpackConfig.optimization.splitChunks = {
   chunks: 'all',
+  // 注意此处数据的改动，因为jquery没有从entry里移除
   maxInitialRequests: 3,
   minSize: 0,
 };
