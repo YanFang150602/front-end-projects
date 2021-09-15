@@ -1,7 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const webpackConfig = {
   entry: {
@@ -43,7 +43,7 @@ webpackConfig.plugins.push(
   })
 );
 webpackConfig.plugins.push(new webpack.HotModuleReplacementPlugin());
-webpackConfig.plugins.push(new BundleAnalyzerPlugin());
+// webpackConfig.plugins.push(new BundleAnalyzerPlugin());
 // webpackConfig.devtool = 'source-map';
 webpackConfig.devServer = {
   static: './dist',
