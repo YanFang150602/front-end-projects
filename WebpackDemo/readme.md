@@ -146,9 +146,9 @@ PS D:\workbook\webpackdemo>
 
 # Tree Shaking
 
-## usedExports
-
 依赖于 ES2015 模块语法的 静态结构 特性，例如 import 和 export！
+
+## usedExports
 
 ```js
 webpackConfig.mode = 'development';
