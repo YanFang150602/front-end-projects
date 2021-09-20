@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    div {
+      width: 100px;
+      height: 100px;
+      background-color: red;
+      animation: go 2s;
+    }
+    @keyframes go {
+      /* 起始位置等价于from */
+      0% {
+        transform: translate3d(0, 0, 0);
+      }
+      25% {
+        transform: translate3d(25px, 0, 0);
+      }
+      50% {
+        transform: translate3d(25px, 25px, 0);
+      }
+      75% {
+        transform: translate3d(0, 25px, 0);
+      }
+      100% {
+        transform: translate3d(0, 0, 0);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id ="app"> </div>
+
+  <script>
+  </script>
+</body>
+
+</html>
