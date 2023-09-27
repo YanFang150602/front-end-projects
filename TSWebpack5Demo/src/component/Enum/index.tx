@@ -1,0 +1,30 @@
+enum Direction {
+  UP,
+  DOWN,
+  LEFT,
+  RIGHT
+}
+
+enum City {
+  ShangHai='SH',
+  BeiJing='BJ'
+}
+
+enum Season {
+  SPRING,
+  SUMMER,
+  AUTUMN=3,
+  WINTER
+}
+
+let d:Direction = Direction.UP;   // 0
+let c:City = City.BeiJing;        // BJ
+let s1:Season = Season.SPRING;    // 0
+let s2:Season = Season.WINTER;    // 4
+
+export default {
+  d,
+  c,
+  s1,
+  s2
+};
